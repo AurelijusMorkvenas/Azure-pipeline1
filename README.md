@@ -1,3 +1,4 @@
+Here’s a detailed README.md that you can use for your GitHub repository:
 
 markdown
 Kopiera kod
@@ -33,16 +34,20 @@ Key technologies used:
 
 ## System Components
 
-1. **Virtual Machine**
+1. **Virtual Machine (VM1)**
    - **Purpose**: Runs the cloud-side Python program and hosts Grafana for visualizing data.
    
 2. **SQL Server & Azure SQL Database**
+   - **Server**: `mydatapipelineserver`
+   - **Database**: `mydatapipelinedb`
    - **Purpose**: Central repository for all sensor data ingested from the Azure Queue.
 
 3. **Azure Queue Storage**
+   - **Storage Account**: `mydatapipelinequeue`
    - **Purpose**: Buffers sensor data before it's ingested into the SQL database.
 
 4. **Azure Logic App**
+   - **Name**: `QueueToSQLLogicApp`
    - **Purpose**: Automates ingestion of queued data into the Azure SQL Database.
 
 5. **Python-based Menu UI**
@@ -101,13 +106,10 @@ Use Grafana:
 
 Access Grafana via your VM’s public IP (port 3000).
 Visualize the sensor data using pre-configured dashboards.
-
 Use PowerBI:
 
 Connect PowerBI to the Azure SQL Database and analyze data using custom dashboards.
-
 Cost Analysis
-
 A detailed cost analysis comparing:
 
 Azure SQL Database (Serverless)
