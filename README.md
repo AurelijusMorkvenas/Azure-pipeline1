@@ -96,3 +96,4 @@ You can find the details of this cost analysis in the screenshots folder of this
 
 Screenshots
 This repository includes screenshots that demonstrate the working system, from data generation to data visualization in Grafana, Power BI, and the terminal-based menu-driven UI.
+
