@@ -73,7 +73,7 @@ Key technologies used:
 4. **PowerBI**: Installed on your local machine, connected to the Azure SQL Database.
 
 
-## Screenshots included
+### Screenshots included
 
 
 

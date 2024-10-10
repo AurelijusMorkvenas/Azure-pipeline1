@@ -1,3 +1,4 @@
-azure.storage.queue
-random
+azure-storage-queue
+pyodbc
 python-dotenv
+
