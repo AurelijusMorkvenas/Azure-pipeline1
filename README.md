@@ -26,12 +26,12 @@ Key technologies used:
    - **Purpose**: Runs the cloud-side Python program and hosts Grafana for visualizing data.
    
 2. **SQL Server & Azure SQL Database**
-   - **Server**: `mydatapipelineserver`
-   - **Database**: `mydatapipelinedb`
+   - **Server**: `myservername`
+   - **Database**: `mydbname`
    - **Purpose**: Central repository for all sensor data ingested from the Azure Queue.
 
 3. **Azure Queue Storage**
-   - **Storage Account**: `mydatapipelinequeue`
+   - **Storage Account**: `myqueuename`
    - **Purpose**: Buffers sensor data before it's ingested into the SQL database.
 
 4. **Azure Logic App**
