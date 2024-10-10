@@ -2,15 +2,7 @@
 
 This project implements an end-to-end data pipeline using Azure services and cloud-side Python programs. The goal is to simulate sensor data generation at the edge, transfer this data to the cloud via Azure Queue Storage, and ingest it into an Azure SQL Database. Data consumers such as Grafana, PowerBI, and a text-based Python UI are used to visualize and analyze the data. Additionally, cost analysis using the Azure Pricing Calculator is included.
 
-## Table of Contents
 
-1. [Overview](#overview)
-2. [System Components](#system-components)
-3. [Data Flow](#data-flow)
-4. [Instructions](#instructions)
-5. [Cost Analysis](#cost-analysis)
-6. [Screenshots](#screenshots)
-7. [Project Structure](#project-structure)
 
 ---
 
@@ -81,7 +73,7 @@ Key technologies used:
 4. **PowerBI**: Installed on your local machine, connected to the Azure SQL Database.
 
 
-Screenshots included
+## Screenshots included
 
 
 
