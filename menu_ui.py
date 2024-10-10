@@ -5,11 +5,11 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
-# Set up the database connection
+# Set up the database connection using environment variables
 conn = pyodbc.connect(
-    "DRIVER={ODBC Driver 17 for SQL Server};"
-    f"SERVER=mydatapipelineserver.database.windows.net;"
-    f"DATABASE=mydatapipelinedb;"
+    f"DRIVER={os.getenv('AZURE_SQL_DRIVER')};"
+    f"SERVER={os.getenv('AZURE_SQL_SERVER')};"
+    f"DATABASE={os.getenv('AZURE_SQL_DATABASE')};"
     f"UID={os.getenv('AZURE_SQL_USERNAME')};"
     f"PWD={os.getenv('AZURE_SQL_PASSWORD')}"
 )
