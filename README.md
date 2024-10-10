@@ -1,98 +1,91 @@
 Azure Data Pipeline Project
-This repository contains the code and resources for a complete Azure Data Pipeline project. The project demonstrates how to simulate sensor data at the edge, upload it to Azure Queue Storage, process the data using an Azure Logic App, store it in an Azure SQL database, and visualize the data using Grafana and PowerBI.
+Project Overview
+This project demonstrates a full data pipeline implementation using Azure services, from edge data generation to data consumption through multiple platforms. The pipeline integrates real-time data ingestion, processing, storage, and visualization.
 
-Architecture Overview
-Components
-Data Producer: A Python script that simulates sensor data generation and sends it to Azure Queue Storage.
-Azure Queue Storage: Acts as the intermediary for data ingestion into the cloud.
-Azure Logic App: Transfers data from Azure Queue Storage to Azure SQL Database.
-Azure SQL Database: Stores the processed sensor data.
-Data Consumers:
-Grafana: Visualizes the sensor data using a dashboard hosted on a virtual machine (VM).
-PowerBI: Provides insights and reports based on the stored sensor data.
-Menu-Driven UI: A cloud-side Python program allowing interaction with the data through a terminal-based interface.
-Prerequisites
-Before you begin, make sure you have the following:
+Key Components
+Virtual Machine (VM1): Hosts various services and tools, including Grafana for data visualization.
+Azure SQL Server: mydatapipelineserver hosts the SQL database used for data storage.
+Azure SQL Database: mydatapipelinedb is the main database where processed data is stored.
+Azure Storage Account: mydatapipelinequeue handles message queues for serverless data transfer.
+Logic App: QueueToSQLLogicApp ingests data from the Azure Storage Queue into the SQL Database.
+Grafana: Deployed on the VM for real-time monitoring of data.
+PowerBI: Used locally for data visualization using data from the Azure SQL Database.
+Python Menu-driven UI: A cloud-side Python script (menu_ui.py) that interacts with the SQL database, providing a text-based user interface for querying and displaying data.
+Data Flow Diagram
+This pipeline covers the full data flow from data generation to consumption:
 
-Azure Account: Set up your Azure environment, including a Virtual Machine, SQL Server, SQL Database, Storage Account, and Logic App.
-Python 3.12: Ensure Python 3.12 is installed on both your local machine and VM.
-Required Python Libraries: Install the required libraries such as pyodbc, azure-storage-queue, and python-dotenv in your environment.
-Azure SQL Database: You should have created an Azure SQL Database instance for storing sensor data.
-Steps to Run the Project
-1. Clone the Repository
-To clone the project repository, run the following command in your terminal:
+Edge Data Generation: Using data_producer.py, real-time data is generated on the edge.
+Data Ingestion to the Cloud: The edge-generated data is uploaded to Azure via a serverless queue in the mydatapipelinequeue storage account.
+Queue to Database: The QueueToSQLLogicApp ingests the data from the Azure queue and inserts it into the mydatapipelinedb Azure SQL Database.
+Data Storage: The processed data is stored in the serverless Azure SQL Database (mydatapipelinedb).
+Data Consumption:
+Grafana: Visualizes real-time data directly from the SQL Database (hosted on VM1).
+PowerBI: Locally connects to the SQL Database and provides a rich dashboard with visualization.
+Python Program: A menu-driven UI (menu_ui.py) running on VM1, allowing for interactive querying and displaying of data from the database.
+Repository Structure
+plaintext
+Kopiera kod
+.
+├── data_producer.py       # Generates edge data and uploads to Azure Storage Queue
+├── menu_ui.py             # Cloud-side Python program with a text-based menu for querying the database
+├── azure_deployment.json  # Contains ARM template for deploying Azure resources
+├── screenshots/           # Folder with screenshots showing the working data flow and services
+├── README.md              # This README file
+Detailed Explanation of Files
+data_producer.py
+
+Purpose: Simulates edge data generation and uploads the data to the Azure queue (mydatapipelinequeue).
+Where it Runs: This script is intended to run on an edge device or any environment that simulates real-time data production.
+menu_ui.py
+
+Purpose: A cloud-side Python script providing an interactive text-based menu-driven UI for querying data from the Azure SQL Database (mydatapipelinedb).
+Where it Runs: This script runs on the VM (VM1), which interacts with the SQL Database.
+azure_deployment.json
+
+Purpose: An Azure Resource Manager (ARM) template for automating the deployment of the Azure resources used in this project (SQL Server, Storage, Logic Apps, etc.).
+Where it Runs: Run in the Azure portal or via CLI to deploy the resources.
+screenshots/
+
+Contains: Screenshots of the working data flow, from data generation through the edge, ingestion into the cloud, database storage, and data visualization in Grafana, PowerBI, and the Python UI.
+Setup and Execution Instructions
+Clone the repository:
 
 bash
 Kopiera kod
-git clone https://github.com/AurelijusMorkvenas/Azure-pipeline1.git
-2. Set Up the Virtual Machine (VM)
-After cloning the repository, you need to ensure the virtual machine is running and set up the necessary dependencies.
+git clone https://github.com/your-repo-url.git
+cd your-repo-url
+Running the Data Producer:
 
-a. Connect to the VM
-Log into your virtual machine (VM1) using SSH:
-
-bash
-Kopiera kod
-ssh azureuser@<your-vm-ip>
-b. Activate the Python Virtual Environment
-Activate the Python virtual environment on your VM:
-
-bash
-Kopiera kod
-source ~/myenv/bin/activate
-c. Install the Required Python Libraries
-Install the required Python libraries inside the virtual environment:
-
-bash
-Kopiera kod
-pip install -r requirements.txt
-d. Run the Menu-Driven UI
-To interact with the sensor data via a terminal-based UI, run the following command on your VM:
-
-bash
-Kopiera kod
-python /home/azureuser/menu_ui.py
-3. Run the Data Producer
-Run the data producer script to simulate sensor data and send it to Azure Queue Storage:
-
+Ensure you have Python and the necessary Azure SDKs installed.
+Run the data_producer.py script to simulate edge data production:
 bash
 Kopiera kod
 python data_producer.py
-This script will continuously generate sensor data and upload it to Azure Queue Storage.
+Running the Python UI on VM1:
 
-4. Azure Logic App
-The Azure Logic App is configured to automatically pick up the data from Azure Queue Storage and ingest it into the Azure SQL Database. You can verify that the data is ingested properly by querying the SQL database.
-
-5. Visualize Data in Grafana
-You can visualize the sensor data in Grafana by following these steps:
-
-a. Access Grafana
-Open Grafana in your browser by navigating to the following address (make sure the VM is running):
-
+Connect to your VM (VM1) where the script will be executed.
+Run the menu_ui.py to interact with the Azure SQL Database:
 bash
 Kopiera kod
-http://<your-vm-ip>:3000
-b. Log In
-Log in with your credentials (the default username is admin).
+python menu_ui.py
+Viewing Data in Grafana:
 
-c. Create a Dashboard
-In Grafana, create a dashboard to visualize the data stored in your SQL database. Use appropriate visualizations such as time series graphs to display the sensor data.
+Access Grafana on VM1 using port 3000 (if not configured, ensure inbound port rules are set):
+arduino
+Kopiera kod
+http://<VM1-IP>:3000
+Viewing Data in PowerBI:
 
-6. Visualize Data in Power BI
-Follow these steps to visualize the sensor data using Power BI:
-
-a. Connect Power BI to Azure SQL Database
-Open Power BI Desktop. Go to Get Data > Azure > Azure SQL Database. Enter the necessary connection details to connect Power BI to your Azure SQL Database.
-
-b. Create Visualizations
-Once connected, you can create visualizations using the stored sensor data. Use charts like line graphs, bar charts, and tables to represent the data effectively.
-
-Cost Analysis
-This project includes a cost analysis comparing two approaches to running a 10TB database:
-
-Azure SQL Database (Serverless)
-Azure Virtual Machine with PostgreSQL installed
-You can find the details of this cost analysis in the screenshots folder of this repository.
-
+Open PowerBI locally and connect it to the Azure SQL Database (mydatapipelinedb).
+Load the data and visualize it using custom dashboards.
 Screenshots
-This repository includes screenshots that demonstrate the working system, from data generation to data visualization in Grafana, Power BI, and the terminal-based menu-driven UI.
+Feature	Screenshot Preview
+Data Generation (Producer)	
+Azure Queue (Storage)	
+Logic App	
+SQL Database (Azure)	
+Grafana Dashboard	
+PowerBI Dashboard	
+Python UI	
+Cost Analysis
+A full cost analysis of the project was conducted using the Azure Pricing Calculator. The total estimated cost for running this pipeline, based on the current configuration and expected usage, is provided in the attached screenshots (screenshots/cost_analysis.png).
