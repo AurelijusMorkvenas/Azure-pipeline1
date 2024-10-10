@@ -36,3 +36,14 @@ To clone the project repository, run the following command in your terminal:
 
 ```bash
 git clone https://github.com/AurelijusMorkvenas/Azure-pipeline1.git
+
+### 2. Set Up the Virtual Machine (VM)
+
+After cloning the repository, you need to ensure the virtual machine is running and that you have set up the necessary dependencies.
+
+#### a. Connect to the VM
+
+Log into your virtual machine (VM1) using SSH:
+
+```bash
+ssh azureuser@<your-vm-ip>
