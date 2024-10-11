@@ -37,5 +37,5 @@ def send_message_to_queue():
 
 # Send multiple messages
 if __name__ == "__main__":
-    for _ in range(100):
+    for _ in range(1):
         send_message_to_queue()

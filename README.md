@@ -35,7 +35,7 @@ Key technologies used:
    - **Purpose**: Buffers sensor data before it's ingested into the SQL database.
 
 4. **Azure Logic App**
-   - **Name**: `QueueToSQLLogicApp`
+   - **Name**: `mylogicappname`
    - **Purpose**: Automates ingestion of queued data into the Azure SQL Database.
 
 5. **Python-based Menu UI**
